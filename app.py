@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
@@ -10,7 +12,8 @@ sns.set_theme(style="whitegrid")
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("Speed_Dating_Data.csv", encoding="latin1")
+    data_path = Path(__file__).parent / "Speed_Dating_Data.csv"
+    df = pd.read_csv(data_path, encoding="latin1")
     df["gender_label"] = df["gender"].map({0: "Femme", 1: "Homme"})
     df["age_gap"] = (df["age"] - df["age_o"]).abs()
     return df
